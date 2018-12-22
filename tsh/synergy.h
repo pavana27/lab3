@@ -590,6 +590,8 @@ typedef struct {
 } tsh_get_it;
 
 typedef struct {
+  char name[NAME_LEN];
+  sng_int32 len;
   char buffer[2048];
   sng_int32 host;
   sng_int16 port;

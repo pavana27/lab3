@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	port = atoi(argv[1]);
 	while (TRUE) {
        this_op = drawMenu() + TSH_OP_MIN - 1 ;
-			 printf("Operation is %d", this_op);
+			 //printf("Operation is %d", this_op);
        if (this_op >= TSH_OP_MIN && this_op <= TSH_OP_MAX) {
 			   this_op = htons(this_op) ;
 			   tshsock = connectTsh(port) ;
@@ -31,10 +31,10 @@ int main(int argc, char **argv)
 				   perror("main::writen\n") ;
 				   exit(1) ;
 				 }
-				printf("sent tsh op \n");
+				//printf("sent tsh op \n");
 			   // Response processing
 			   (*op_func[ntohs(this_op) - TSH_OP_MIN])() ;
-				 printf("sent tsh op123 \n");
+				 //printf("sent tsh op123 \n");
 			   close(tshsock) ;
 		   } else
 	  		return 0 ;
@@ -268,10 +268,6 @@ u_short drawMenu()
 void OpRshell()
 {
 
-	tsh_rshell_it out ;
-	tsh_rshell_ot in ;
-	tsh_rshell_ot in1 ;
-
 	 struct in_addr addr ;
    int sd, sock ;
    int status;
@@ -292,8 +288,15 @@ void OpRshell()
 		 int i=0;
 		 char c;
 		 //printf("\nSocket : %d\n", tshsock) ;
-		 printf("\nEnter command :> ");
+		 printf("\nEnter command Owner:> ");
+		 status = scanf("%[^\n]", out.name);
+		 scanf("%c", &st);
+		 printf("Enter command length:> ");
+		 status = scanf("%d", &out.len);
+		 scanf("%c", &st);
+		 printf("Enter command :> ");
 		 status = scanf("%[^\n]", out.buffer);
+
 		 while (out.buffer[i]) {
 		    c=out.buffer[i];
 		    out.buffer[i] = tolower(c);
@@ -305,7 +308,11 @@ void OpRshell()
 			 break;
 		 }
 
-		 //printf("\nEntered command : %s", out.buffer);
+		 printf("\nTo Shell");
+		 printf("\n------------");
+		 printf("\nOwner: %s", out.name);
+		 printf("\nlength : %d", out.len);
+		 printf("\nEntered command : %s", out.buffer);
 
 
 	   addr.s_addr = out.host ;
@@ -332,7 +339,7 @@ void OpRshell()
 	     }
 
 			 //printf("\n\nFrom TSH :\n") ;
-		   printf("%s", in1.buffer) ;
+		   //printf("%s", in1.buffer) ;
 			 getchar();
 			 close(tshsock);
 

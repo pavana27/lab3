@@ -64,7 +64,7 @@ void start()
       	   close(newsock) ;
       	   continue ;
       	}
-        printf("Operation is %d", this_op);
+        //printf("Operation is %d", this_op);
 
 				/* invoke function for operation */
         this_op = ntohs(this_op) ;
@@ -903,7 +903,7 @@ void OpRshell()
 
 				/* read tuple name */
    if (!readn(newsock, (char *)&in, sizeof(tsh_rshell_it))){
-      printf("Incoming request 1 :: %s\n", in.buffer);
+      //printf("Incoming request 1 :: %s\n", in.buffer);
       return ;
    }
 
